@@ -1,0 +1,1 @@
+Remove all extra python modules under the application.
