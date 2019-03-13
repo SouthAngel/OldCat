@@ -1,0 +1,8 @@
+global proc loction(int $running){
+    string $locFilePath = `whatIs loction`;
+    string $projectPath = `substring $locFilePath 25 (size($locFilePath)-22)`;
+    string $pyCommand = "execfile('"+$projectPath+"/OldCat/Awake/Roll.py')\n__run_from('"+$projectPath+"')";
+    python($pyCommand);
+}
+
+evalDeferred -lp "loction(0)";

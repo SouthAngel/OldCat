@@ -1,7 +1,9 @@
 
 
-def main(*args):
-    PATH_ADDTIONS = args
+def main():
+    PATH_ADDTIONS = (
+        r"D:\Work\Tools",
+    )
 
     import sys, os
 
@@ -16,6 +18,4 @@ def main(*args):
 
 if __name__ == "__main__":
     print("Run execFrom")
-    main(
-        r"\\192.168.3.45\Users\PengCheng\Temp\OldCatDevelop",
-    )
+    main()
