@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
-from ..Body.cache import SQ
+from ..Body import menu
 
 
 def main():
     print("Run awake main")
+    menu.createAppendMenuBar()

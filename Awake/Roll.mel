@@ -3,8 +3,8 @@ global proc loction(int $running){
     string $projectPath = `substring $locFilePath 25 (size($locFilePath)-22)`;
     $projectPath = substituteAllString($projectPath, "\\", "/");
     string $pyCommand = "execfile('"+$projectPath+"/OldCat/Awake/Roll.py')\n__run_from('"+$projectPath+"')";
-    print($pyCommand);
     python($pyCommand);
+    file -f -new;
 }
 
 evalDeferred -lp "loction(0)";
