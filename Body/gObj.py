@@ -14,6 +14,8 @@ class GlobalObject(object):
         makeTrueDir(self.tempPath)
         self.workPath = None
         self.assetPath = os.path.dirname(os.path.dirname(__file__)).replace("\\", "/") + "/Friends"
+        self.table = None
+        self.dbOther = None
         self.tempValues = {}
 
     def set_workPath(self, ipath):

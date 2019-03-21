@@ -7,3 +7,4 @@ def main():
             ks = cPickle.load(opf)
         for k in iter(set(sys.modules.keys()) - set(ks)):
             del sys.modules[k]
+            print('Remove module <%s>' % k)

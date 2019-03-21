@@ -41,8 +41,8 @@ class Cacher(DataBaseTable):
         self.create_table_if_not_exists(_FREF_ATTRS)
 
     def update(self):
-        self.sq.execute("DROP TABLE IF EXISTS " + self.tableName)
-        self.create_table_if_not_exists(_FREF_ATTRS)
+        self.sq.execute("DELETE FROM " + self.tableName)
+        self.sq.commit()
         founds = []
         for each in iter(os.listdir(GV.assetPath)):
             cPath = '%s/%s' % (GV.assetPath, each)
@@ -52,8 +52,10 @@ class Cacher(DataBaseTable):
                 newItem.path = cPath.replace("\\", "/")
                 if os.path.isfile(cPath + "/icon.png"):
                     newItem.iconType = "1"
-                elif os.path.isfile(cPath + "/doc/index.txt"):
+                if os.path.isfile(cPath + "/doc/index.txt"):
                     newItem.docType = "1"
+                elif os.path.isfile(cPath + "/doc/index.html"):
+                    newItem.docType = "2"
                 if os.path.isfile(cPath + "/startup.py"):
                     newItem.isStartup = "1"
                 command = 'INSERT INTO %s (%s) VALUES (%s)' % (
@@ -64,8 +66,11 @@ class Cacher(DataBaseTable):
                 self.sq.execute(command)
         self.sq.commit()
 
-    def list_all(self):
-        cu = self.sq.execute("SELECT * FROM %s" % self.tableName)
+    def list_all(self, filterStr=None):
+        command = "SELECT * FROM %s" % self.tableName
+        if filterStr:
+            command += " WHERE %s" % filterStr
+        cu = self.sq.execute(command)
         ret = []
         for each in cu:
             newItem = Friend()
@@ -101,3 +106,5 @@ class Data(object):
 
 
 SQ = Data()
+GV.table = SQ.cacher
+GV.dbOther = SQ.dict

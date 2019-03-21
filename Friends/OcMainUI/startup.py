@@ -1,9 +1,10 @@
 from maya import cmds
 
 
+## -- Menu
 MENU_ROOT = ("IDOldCatMenu", "Cat")
 MENU_DATA = (
-    ("Open", "print('Open')"),
+    ("Open", "import OcMainUI.main\nOcMainUI.main.WindowList().show()"),
     ("Favorite", None),
     ("Settings", None),
     ("Document", None),
@@ -18,10 +19,10 @@ class Menu(object):
         self.parent = None
         self.command = None
         self.childern = list()
-    
+
     def create(self):
         argv = {
-            "label" : self.name
+            "label": self.name
         }
         if self.command:
             argv["command"] = self.command
@@ -46,3 +47,8 @@ def createAppendMenuBar():
         if each[1]:
             mi.command = each[1]
         mi.create()
+
+
+def main():
+    createAppendMenuBar()
+
